@@ -3,7 +3,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 100vh; /* Set minimum height to ensure the footer is at the bottom */
+    min-height: 100vh;
     margin: 0;
     background-color: #f4f4f4;
 }
@@ -14,7 +14,7 @@ body {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: auto; /* Push the container to the top */
+    flex-grow: 1; /* Allow container to grow and take up remaining space */
 }
 
 h1 {
@@ -54,10 +54,9 @@ p {
 }
 
 footer {
-    margin-top: auto; /* Push the footer to the bottom */
     text-align: center;
     color: #555;
     font-size: 14px;
-    padding: 10px; /* Add padding for better spacing */
-    background-color: #f4f4f4; /* Match the body background color */
+    padding: 10px;
+    background-color: #f4f4f4;
 }
