@@ -1,53 +1,65 @@
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    background-color: #f4f4f4;
+function convertToWords() {
+    const numberInput = document.getElementById("numberInput").value;
+    const resultElement = document.getElementById("result");
+
+    // Use an improved logic to convert the number to words
+    const result = convertNumberToWords(numberInput);
+
+    resultElement.innerText = `Result: ${result}`;
 }
 
-.container {
-    text-align: center;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+// Improved logic to convert number to words
+function convertNumberToWords(number) {
+    const units = ["", "thousand", "million", "billion", "trillion", "quadrillion", "quintillion"];
+    const words = ["", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
+
+    // Convert the string input to a number
+    let numericValue = parseInt(number, 10);
+
+    // Check if the input is a valid number
+    if (isNaN(numericValue)) {
+        return "Invalid input";
+    }
+
+    // Use the improved logic to convert the number to words
+    if (numericValue === 0) {
+        return "zero";
+    }
+
+    let result = "";
+    let index = 0;
+
+    while (numericValue > 0) {
+        const threeDigits = numericValue % 1000;
+        if (threeDigits !== 0) {
+            result = convertThreeDigitsToWords(threeDigits) + " " + units[index] + " " + result;
+        }
+        numericValue = Math.floor(numericValue / 1000);
+        index++;
+    }
+
+    return result.trim() || "zero";
 }
 
-h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
-}
+// Helper function to convert three digits to words
+function convertThreeDigitsToWords(num) {
+    const words = ["", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
+    const teens = ["", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"];
+    const tens = ["", "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"];
 
-label {
-    font-size: 18px;
-    margin-right: 10px;
-}
+    let result = "";
 
-input {
-    padding: 12px;
-    margin: 0 5px;
-    font-size: 16px;
-}
+    const hundreds = Math.floor(num / 100);
+    if (hundreds > 0) {
+        result += words[hundreds] + " hundred ";
+    }
 
-button {
-    padding: 12px 24px;
-    font-size: 16px;
-    background-color: #4caf50;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
+    const lastTwoDigits = num % 100;
+    if (lastTwoDigits >= 11 && lastTwoDigits <= 19) {
+        result += teens[lastTwoDigits - 11];
+    } else {
+        result += tens[Math.floor(lastTwoDigits / 10)] + " " + words[lastTwoDigits % 10];
+    }
 
-button:hover {
-    background-color: #45a049;
-}
-
-p {
-    margin-top: 20px;
-    font-size: 18px;
-    color: #333;
+    return result.trim();
 }
