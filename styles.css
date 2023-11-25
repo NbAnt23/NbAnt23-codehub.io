@@ -50,9 +50,11 @@ button:hover {
     background-color: #45a049;
 }
 
-p {
-    margin-top: 20px;
+p#result {
     font-size: 18px;
+    font-weight: bold;
+    font-style: italic; /* Make the result italic */
+    margin-top: 20px;
     color: #333;
 }
 
